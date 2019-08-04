@@ -23,9 +23,10 @@ module.exports = {
   ],
   // Customize your site metadata:
   siteMetadata: {
-    title: `What I learn this time`,
+    title: `Omher - What I learn this time`,
     author: `Omer Herera`,
     description: `I write here all the useful things I learn and try to share them with the world. JS, JavaScript, node, nodejs, infra`,
+    url: 'https://omher.com/',
     social: [
       {
         name: `twitter`,
