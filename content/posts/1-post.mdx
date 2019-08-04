@@ -1,0 +1,53 @@
+---
+title: How I learn to test global environments
+date: 2019-08-01
+---
+
+What I learn this week,
+
+When doing `unit-test` sometimes we need to mock the window object or the `process.env` if you are testings in nodejs
+
+Lets said you have some code like this:
+
+```js
+    function getParam() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('value') === '1';
+}
+```
+
+If you are using [jest](https://jestjs.io/), how you can mock the query from the URL it `Jest` its running on node(no window 😔)
+
+I found that in `Jest` its possible to set any query param in the URL using the following code
+
+```js
+    beforeAll(() => {
+    window.history.pushState({}, null, '?value=1');
+});
+// now you can check your code
+it('should return 1 from query', () => {
+    expect(getParam().toEqual('1')
+});
+```
+
+Another useful code that I discover is mocking `process` environments in node
+
+Again lets said you have the following code,
+```js
+    function isLogLevelError() {
+        return process.env.LOG_LEVEL = 'ERROR';
+}
+```
+
+And you want to test the how your code will behave according to this environment
+
+```js
+beforeAll(() => {
+    process.env.LOG_LEVEL = 'ERROR';
+});
+
+// now you can check your code
+it('should return 1 from query', () => {
+    expect(isLogLevelError().toEqual('ERROR')
+});
+```
