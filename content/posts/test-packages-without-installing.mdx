@@ -1,0 +1,24 @@
+---
+title: Test Packages without installing
+date: 2019-08-08
+---
+
+If you want to test your package installs the right way without publishing, check out using `yarn pack`or
+`npm pack` to package up your module into a
+`tgz`file and then install that file with `yarn add` or
+`npm install` . It’s basically what
+`yarn/npm` does with your package under the hood 🤯
+
+```js
+# Pack your module into a .tgz :package:
+yarn pack
+# Navigate into another project
+cd ../another-project
+yarn add ../my-lib/my-lib-1.0.0.tgz
+# or
+npm install ../my-lib/my-lib-1.0.0.tgz
+# 💥 Your module it's installed
+```
+
+<br />
+Enjoy
