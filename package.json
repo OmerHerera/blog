@@ -6,7 +6,8 @@
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
-    "now-build": "npm run build"
+    "deploy": "now",
+    "build-deploy": "npm run build && npm run deploy"
   },
   "dependencies": {
     "gatsby": "^2.13.45",

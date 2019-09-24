@@ -1,0 +1,80 @@
+---
+title: Create your own cli in nodejs
+date: 2019-09-01
+---
+
+In this post, I'll try to explain how you can create your own `cli` command line in nodejs.
+
+### Step 1 - Create a Node module
+- Create a folder structure something like this:
+
+```
+    my-cool-cli-project
+    |_ bin\cli.js
+    |_ package.json
+```
+<br />
+
+- Run `yarn init` or `npm init` - Following the instruction 🚶
+
+### Step 2 - Create a command-line script
+- Create a JavaScript file and name it `cli.js`
+- Convert the file into a command-line script
+    - We want to make our file executable
+    - We do this adding [shebang character sequence](https://en.wikipedia.org/wiki/Shebang_(Unix)) at the very top of our JavaScript file:
+    ```
+        #!/usr/bin/env node
+    ```
+    We are telling *nix systems that the interpreter of our JavaScript file should be `/usr/bin/env node` which looks up for the locally-installed `node` executable.
+
+    In Windows, that line will just be ignored because it will be interpreted as a comment, but it has to be there because npm will read it on a Windows machine when the NodeJS command-line package is being installed.
+
+- Make our JavaScript command-line file executable
+    - We need to modify its file permissions. In a *nix system you can do that as follows:
+
+    ```
+    chmod +x cli.js           # Make the file executable
+   ```
+
+- Add code to our JavaScript command-line file
+
+```javascript
+#!/usr/bin/env node
+
+const [,, ...args] = process.argv;
+console.log(`Hello ${args}`);
+
+```
+<br />
+
+### Step 3 - Map a command-line script to a command name
+
+- Lets gave a more meaningful mane to our command lien that doesn't need to be the file name
+
+- Add a `bin` filed in your `package.json` which is a mans of command name to local file name:
+
+```json
+"bin": {
+    "my-cool-cli": "./bin/cli.js"
+}
+```
+
+### Step 4 - Test your cli
+
+- Now that we finished all the heavy lifting 😁 lets test itt
+- Run `yarn link` or `npm link` now our command has been `symlinked globally`
+- Now we can execute our file:
+    ```
+    > my-cool-cli
+    Hello
+    > my-cool-cli omher
+    Hello Omher
+    ```
+
+- Don't forget to run once you finish `yarn unlink` or `npm unlink`
+
+
+That's it in 4 steps you can create your own cli mode and run on Linux or Mac 🎉
+
+<br />
+Enjoy
